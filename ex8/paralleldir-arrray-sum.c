@@ -48,3 +48,45 @@ int main() {
 
     return 0;
 }
+///
+adding constant with array
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+#define SIZE 20
+
+int main() {
+    int A[SIZE];
+    int i;
+    int constant = 5;
+
+    int thread_count;
+
+    printf("enter the number of threads:");
+    scanf("%d",&thread_count);
+
+    for(i = 0; i < SIZE; i++) {
+        A[i] = rand() % 50;
+    }
+    printf("Array:\n");
+    for(i=0;i<10;i++)
+    {
+       printf("%d ",A[i]);
+    }
+
+
+    #pragma omp parallel for num_threads(thread_count)
+    for(i = 0; i < SIZE; i++) {
+        A[i] = A[i] + constant;
+    }
+
+    printf("\nUpdated Array:\n");
+    for(i = 0; i < 10; i++) {
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
